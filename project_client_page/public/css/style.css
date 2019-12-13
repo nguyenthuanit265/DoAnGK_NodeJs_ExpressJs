@@ -2185,6 +2185,9 @@ label.radio {
 .login-form-grids h6{
 	margin:3em 0 2em !important;
 }
+.login-form-grids input[type="email"]:nth-child(2) {
+    margin:1em 0;
+}
 .login-form-grids input[type="password"]:nth-child(3) {
     margin:1em 0;
 }

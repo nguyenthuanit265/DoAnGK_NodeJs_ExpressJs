@@ -1,11 +1,11 @@
-var ctx = document.getElementById('myChart').getContext('2d');
+/*var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
         labels: ['2014', '2015', '2016', '2017', '2018', '2019'],
         datasets: [{
-            label: '# số sản phẩm',
-            data: [120, 190, 100, 150, 220, 330],
+            label: '# số hóa đơn',
+            data: [130, 190, 100, 150, 220, 330],
             backgroundColor: ['rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)',
                 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)',
@@ -34,7 +34,7 @@ var myChart2 = new Chart(ctx2, {
     data: {
         labels: ['2014', '2015', '2016', '2017', '2018', '2019'],
         datasets: [{
-            label: '# số đơn hàng',
+            label: '# Doanh số',
             data: [1200, 1900, 1000, 1500, 2200, 3300],
             backgroundColor: ['rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)',
@@ -56,4 +56,4 @@ var myChart2 = new Chart(ctx2, {
             }]
         }
     }
-});
+});*/

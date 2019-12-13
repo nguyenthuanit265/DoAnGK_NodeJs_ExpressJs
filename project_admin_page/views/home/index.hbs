@@ -1,13 +1,50 @@
 <!-- CONTENT -->
-<section id="admin-content" class="p-3">
-    <div class="row">
-        <div class="col-md-6">
-            <canvas id="myChart" width="400" height="400"></canvas>
-        </div>
-        <div class="col-md-6">
-            <canvas id="myChart2" width="400" height="400"></canvas>
-        </div>
-        <div class="col-md-1"></div>
-    </div>
-</section>
+	<section id="admin-content" class="p-3" layout:fragment="content">
+		<div class="row">
+			<div class="col-md-6">
+				<canvas id="myChart" width="400" height="400"></canvas>
+			</div>
+			<div class="col-md-6">
+				<canvas id="myChart2" width="400" height="400"></canvas>
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+		
+		
+		<div class="row">
 
+			<div class="col-sm-12">
+				<div class="card px-3">
+
+					<div class="card-block table-border-style">
+						<div class="table-responsive">
+
+
+							<table class="table table-striped table-bordered" id="tableStatistic">
+								<thead>
+									<tr>
+										<th>STT</th>
+										<th>Năm</th>
+										<th>Số hóa đơn</th>
+										<th>Doanh thu các năm</th>
+
+
+									</tr>
+								</thead>
+								<tbody>
+
+									<tr th:each="item : ${bills}">
+										<td th:text="${ itemStat.index + 1 }"></td>
+										<td th:text="${ item.year }"></td>
+										<td th:text="${ item.totalBill }"></td>
+										<td th:text="${ item.formatTotalPrice }">đ</td>
+										
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>

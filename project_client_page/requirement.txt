@@ -1,0 +1,5 @@
+﻿Xây dựng các chức năng sau cho website khách hàng và website quản trị:
+- Trang đăng ký, yêu cầu password trên 6 ký tự, không được đặt username đã tồn tại: 3 điểm
+- Trang đăng nhập, xử lý đăng nhập bằng passport Local Strategy: 3 điểm
+- Trang chủ nếu đã đăng nhập hiện câu chào người dùng kèm nút đăng xuất, nếu chưa hiện hai nút đăng ký và đăng nhập: 3 điểm
+- Đăng tải lên host thực tế: 1 điểm.
