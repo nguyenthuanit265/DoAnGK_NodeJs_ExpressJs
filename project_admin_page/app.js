@@ -1,19 +1,37 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var mongoose = require('mongoose');
+var passport = require('passport');
+var flash = require("connect-flash");
+var session = require('express-session');
+var bcrypt = require('bcryptjs');
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var rolesRouter = require('./routes/roles');
-var loginRouter = require('./routes/login');
-var departmentRouter = require('./routes/departments');
-var productRouter = require('./routes/products');
-var topProductRouter = require('./routes/topProduct');
-var thong_keRouter = require('./routes/thong_ke');
-var billRouter = require('./routes/bill');
-var app = express();
+const Handlebars = require('handlebars-helpers');
+var methodOverride = require('method-override')
+var app = express()
+// var usersRouter = require('./routes/users');
+// var rolesRouter = require('./routes/roles');
+// var loginRouter = require('./routes/login');
+// var departmentRouter = require('./routes/departments');
+// var productRouter = require('./routes/products');
+// var topProductRouter = require('./routes/topProduct');
+// var thong_keRouter = require('./routes/thong_ke');
+// var billRouter = require('./routes/bill');
+
+
+// override with POST having ?_method=DELETE
+app.use(methodOverride('_method'))
+//Set up mongoose connection
+var mongoDB = 'mongodb+srv://demo:1234AbCd@cluster0-c9v9b.mongodb.net/test?retryWrites=true&w=majority';
+mongoose.connect(process.env.URL_DATABASE, { useNewUrlParser: true, useUnifiedTopology: true });
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,16 +43,39 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// passport initialize
+app.use(passport.initialize());
+app.use(passport.session());
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+passport.deserializeUser(function (user, done) {
+  done(null, user);
+});
+//flash
+app.use(flash());
+
+//session
+//app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  resave: true,
+  saveUninitialized: true,
+  secret: 'somesecret',
+  cookie: { maxAge: 60000 }
+}));
+
+
+app.use(function (req, res, next) {
+  res.locals.session = req.session;
+  next();
+});
+
 app.use('/admin', indexRouter);
-app.use('/admin', usersRouter);
-app.use('/admin',rolesRouter);
-app.use('/admin/login',loginRouter);
-app.use('/logout',loginRouter);
-app.use('/admin',departmentRouter);
-app.use('/admin',productRouter);
-app.use('/admin',topProductRouter);
-app.use('/admin',thong_keRouter);
-app.use('/admin',billRouter);
+
+// app.put('/',indexRouter);
+//  app.post('/',indexRouter);
+// app.delete('/',indexRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

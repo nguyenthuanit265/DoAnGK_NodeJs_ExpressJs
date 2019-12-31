@@ -22,21 +22,25 @@
                                 <th>STT</th>
                                 <th>Họ Tên</th>
                                 <th>Email</th>
-                                <th>Số ĐT</th>
+                                <th>Password</th>
+                                <th>Quyền</th>
                                 <th>#</th>
                             </tr>
                         </thead>
                         <tbody>
+                            {{#each users}}
                             <tr>
-                                <th>1</th>
-                                <td>Nguyễn Văn Tèo</td>
-                                <td>teonguyen@gmail.com</td>
-                                <td>01234567899</td>
+                                <th>{{@index}}</th>
+                                <td>{{username}}</td>
+                                <td>{{email}}</td>
+                                <td>{{password}}</td>
+                                <td>{{role.description}}</td>
                                 <td>
-                                    <a href="/admin/user/edit" class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
-                                    <a href="/admin/user/delete" class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
+                                    <a href="/admin/user/edit/{{_id}}" class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
+                                    <a href="/admin/user/delete/{{_id}}" class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
                                 </td>
                             </tr>
+                            {{/each}}
                         </tbody>
                     </table>
                 </div>

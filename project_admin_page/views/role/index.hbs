@@ -26,30 +26,17 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {{#each roles}}
                             <tr>
-                                <th>1</th>
-                                <td>ROLE_ADMIN</td>
-                                <td>Quản trị</td>
-                                <td><a href="/admin/role/edit" class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
-                                    <a href="#" class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
+                                <th>{{@key}}</th>
+                                <td>{{name}}</td>
+                                <td>{{description}}</td>
+                                <td><a href="/admin/role/edit/{{_id}}" class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
+                                    <a href="/admin/role/delete/{{_id}}" class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>ROLE_MANAGER</td>
-                                <td>Quản lý</td>
-                                <td><a href="/admin/role/edit" class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
-                                    <a href="#" class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>3</th>
-                                <td>ROLE_USER</td>
-                                <td>Người dùng</td>
-                                <td><a href="/admin/role/edit" class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
-                                    <a href="#" class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
-                                </td>
-                            </tr>
+                            {{/each}}
+                            
                         </tbody>
                     </table>
                 </div>
