@@ -92,6 +92,8 @@ router.post('/role/add',roleController.postAdd);
 router.get('/role/edit/:id',roleController.getEdit);
 router.post('/role/edit',roleController.postEdit);
 
+router.get('/role/delete/:id',roleController.deleteById);
+
 // router.get('/admin/role/delete/:id',roleController.getDelete);
 
 // USER
@@ -103,7 +105,7 @@ router.post('/user/add',userController.postAdd);
 router.get('/user/edit/:id',userController.getEdit);
 router.post('/user/edit', userController.postEdit);
 
-
+router.get('/user/delete/:id',userController.deleteById);
 
 
 

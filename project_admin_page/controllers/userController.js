@@ -68,3 +68,12 @@ exports.postEdit = (req,res,next) => {
     });
     
 }
+
+exports.deleteById = (req,res,next) => {
+    const query = User.findByIdAndDelete({_id:req.params.id});
+    query.exec(function(err,result){
+        if (err) throw err;
+        console.log('User deleted....!');
+        res.redirect('/admin/user');
+    })
+}

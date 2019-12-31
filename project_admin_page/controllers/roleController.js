@@ -80,3 +80,11 @@ exports.postEdit = (req, res, next) => {
 //         res.redirect('/admin/role');
 //     })
 // }
+exports.deleteById = (req,res,next) => {
+    const query = Role.findByIdAndDelete({_id:req.params.id});
+    query.exec(function(err,result){
+        if (err) throw err;
+        console.log('Role deleted....!');
+        res.redirect('/admin/role');
+    })
+}
