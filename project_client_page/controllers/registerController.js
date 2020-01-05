@@ -3,6 +3,7 @@ var Role = require('../models/role');
 var express=require("express"); 
 var bodyParser=require("body-parser"); 
 const mongoose = require('mongoose'); 
+const bcrypt = require('bcryptjs');
 
 //Set up mongoose connection
 var mongoDB = 'mongodb+srv://demo:1234AbCd@cluster0-c9v9b.mongodb.net/test?retryWrites=true&w=majority';
@@ -18,9 +19,11 @@ exports.register = (req, res, next) => {
 }
 
 exports.postRegister = (req, res, next) => {
-     let username = req.body.username;
-     let password = req.body.password;
-     let email = req.body.email;
+    let username = req.body.username;
+    let password = req.body.password;
+    let email = req.body.email;
+    let salt = bcrypt.genSaltSync(10);
+    password = bcrypt.hashSync(password, salt);
     let user = User.findOne({ username: req.body.username },
         function (err, obj) {
             //console.log(obj);

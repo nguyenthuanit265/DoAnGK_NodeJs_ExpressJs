@@ -12,6 +12,7 @@ var logoutController = require('../controllers/logoutController');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user');
+var bcrypt=require('bcryptjs');
 
 /* GET home page. */
 router.get('/*', function (req, res, next) {
@@ -44,12 +45,16 @@ passport.use(new LocalStrategy({
     passwordField: 'password'
 },
     function (req, usernameField, passwordField, done) {
+        var salt=bcrypt.genSaltSync(10);
         User.findOne({ username: usernameField }, function (err, user) {
             if (err) { return done(err); }
             if (!user) {
                 return done(null, false, req.flash('message', 'Incorrect username.'));
             }
-            if (!user.validPassword(passwordField)) {
+            console.log(passwordField);
+			console.log(bcrypt.hashSync(passwordField,salt));
+			console.log(user.password);
+            if (!bcrypt.compareSync(passwordField, user.password)) {
                 return done(null, false, req.flash('message', 'Incorrect password.'));
             }
 
