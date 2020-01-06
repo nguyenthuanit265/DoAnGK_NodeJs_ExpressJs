@@ -1,6 +1,7 @@
 const Product = require('../models/product');
 const async = require('async');
 const Handlebars = require('handlebars-helpers')();
+var Cart = require('../models/cart');
 // Handlebars.registerHelper('eachData', function (context, options) {
 //   var fn = options.fn, inverse = options.inverse, ctx;
 //   var ret = "";
@@ -189,4 +190,19 @@ exports.product_detail = function (req, res, next) {
 
   );
 
+};
+
+exports.product_add = function(req, res, next){
+  var productId = req.params.id;
+  var cart = new Cart(req.session.cart ? req.session.cart : {});
+
+  Product.findById(productId, function (err, product) {
+      if(err) {
+        return res.redirect('/#');
+      } 
+      cart.add(product, product.id);
+      req.session.cart = cart;
+      console.log(req.session.cart);
+      res.redirect('/#');
+  })
 };

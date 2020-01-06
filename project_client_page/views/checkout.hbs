@@ -11,7 +11,8 @@
 <!-- checkout -->
 	<div class="checkout">
 		<div class="container">
-			<h3 class="animated wow slideInLeft" data-wow-delay=".5s">Giỏ hàng đang có  <span>3 sản phẩm</span></h3>
+			<h3 class="animated wow slideInLeft" data-wow-delay=".5s">Giỏ hàng đang có  <span>{{session.cart.totalQty}}</span> sản phẩm</h3>
+			{{# if products }}
 			<div class="checkout-right animated wow slideInUp" data-wow-delay=".5s">
 				<table class="timetable_sub">
 					<thead>
@@ -25,93 +26,30 @@
 							<th>Xóa</th>
 						</tr>
 					</thead>
+					{{# each products}}
 					<tr class="rem1">
-						<td class="invert">1</td>
-						<td class="invert-image"><a href="/single"><img src="images/22.jpg" alt=" " class="img-responsive" /></a></td>
+						<td class="invert">{{this.item._id}}</td>
+						<td class="invert-image"><a href="/single"><img src="{{this.item.image}}" alt=" " class="img-responsive" /></a></td>
 						<td class="invert">
 							 <div class="quantity"> 
 								<div class="quantity-select">                           
 									<div class="entry value-minus">&nbsp;</div>
-									<div class="entry value"><span>1</span></div>
+									<div class="entry value"><span>{{ this.qty }}</span></div>
 									<div class="entry value-plus active">&nbsp;</div>
 								</div>
 							</div>
-						</td>
-						<td class="invert">Black Shoe</td>
+						</td>	
+						<td class="invert">{{this.item.name}}</td>
 						<td class="invert">$5.00</td>
-						<td class="invert">$290.00</td>
+						<td class="invert">${{this.price}}</td>
 						<td class="invert">
 							<div class="rem">
-								<div class="close1"> </div>
+								<a class="close1" href="/remove/{{this.item._id}} "></a> 
 							</div>
-							<script>$(document).ready(function(c) {
-								$('.close1').on('click', function(c){
-									$('.rem1').fadeOut('slow', function(c){
-										$('.rem1').remove();
-									});
-									});	  
-								});
-						   </script>
 						</td>
 					</tr>
-					<tr class="rem2">
-						<td class="invert">2</td>
-						<td class="invert-image"><a href="/single"><img src="images/30.jpg" alt=" " class="img-responsive" /></a></td>
-						<td class="invert">
-							 <div class="quantity"> 
-								<div class="quantity-select">                           
-									<div class="entry value-minus">&nbsp;</div>
-									<div class="entry value"><span>1</span></div>
-									<div class="entry value-plus active">&nbsp;</div>
-								</div>
-							</div>
-						</td>
-						<td class="invert">Centre Table</td>
-						<td class="invert">$5.00</td>
-						<td class="invert">$250.00</td>
-						<td class="invert">
-							<div class="rem">
-								<div class="close2"> </div>
-							</div>
-							<script>$(document).ready(function(c) {
-								$('.close2').on('click', function(c){
-									$('.rem2').fadeOut('slow', function(c){
-										$('.rem2').remove();
-									});
-									});	  
-								});
-						   </script>
-						</td>
-					</tr>
-					<tr class="rem3">
-						<td class="invert">3</td>
-						<td class="invert-image"><a href="/single"><img src="images/11.jpg" alt=" " class="img-responsive" /></a></td>
-						<td class="invert">
-							 <div class="quantity"> 
-								<div class="quantity-select">                           
-									<div class="entry value-minus">&nbsp;</div>
-									<div class="entry value"><span>1</span></div>
-									<div class="entry value-plus active">&nbsp;</div>
-								</div>
-							</div>
-						</td>
-						<td class="invert">Stone Bangles</td>
-						<td class="invert">$5.00</td>
-						<td class="invert">$299.00</td>
-						<td class="invert">
-							<div class="rem">
-								<div class="close3"> </div>
-							</div>
-							<script>$(document).ready(function(c) {
-								$('.close3').on('click', function(c){
-									$('.rem3').fadeOut('slow', function(c){
-										$('.rem3').remove();
-									});
-									});	  
-								});
-						   </script>
-						</td>
-					</tr>
+					{{/each}}
+					
 								<!--quantity-->
 									<script>
 									$('.value-plus').on('click', function(){
@@ -127,6 +65,8 @@
 								<!--quantity-->
 				</table>
 			</div>
+			{{ else }}
+			{{/if}}
 			<div class="checkout-left">	
 				<div class="checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">
 					<h4>Thanh toán</h4>
@@ -135,7 +75,7 @@
 						<li>Sản phẩm 2 <i>-</i> <span>$290.00 </span></li>
 						<li>Sản phẩm 3 <i>-</i> <span>$299.00 </span></li>
 						<li>Tổng phí dịch vụ <i>-</i> <span>$15.00</span></li>
-						<li>Tổng tiền <i>-</i> <span>$854.00</span></li>
+						<li>Tổng tiền <i>-</i> <span>{{ totalPrice }}</span></li>
 					</ul>
 				</div>
 				<div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">

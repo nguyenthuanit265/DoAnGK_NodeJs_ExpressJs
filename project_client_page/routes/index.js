@@ -35,6 +35,8 @@ router.get('/product/single/:id', productController.product_detail);
 
 router.get('/products', productController.product_list);
 
+router.get('/add/:id', productController.product_add);
+
 
 // LOGIN
 
@@ -95,6 +97,8 @@ router.get('/furniture', furnitureController.furniture);
 
 //CHECKOUT
 router.get('/checkout', checkoutController.checkout);
+
+router.get('/remove/:id', checkoutController.product_remove);
 
 
 
