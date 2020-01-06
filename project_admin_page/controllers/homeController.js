@@ -8,7 +8,7 @@ exports.home = (req,res,next) =>{
           if (err) { return next(err); }
           //Successful, so render
          
-          res.render('index', { title: 'Best Store', product_list: list_products});
+          res.render('home/index', { title: 'Best Store', product_list: list_products});
         });
     
 }

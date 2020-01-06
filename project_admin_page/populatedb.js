@@ -41,7 +41,7 @@ for (var i = 0; i < categories.length; i++) {
 var products = [
     new Product({
         image: 'https://p.w3layouts.com/demos/21-03-2016/best_store/web/images/19.jpg',
-        id: '01',
+       
         name: 'Áo sơ mi nam',
         description: 'Sang trọng, phong cách mạnh mẽ',
         price: 500000,
@@ -50,7 +50,7 @@ var products = [
 
     new Product({
         image: 'https://p.w3layouts.com/demos/21-03-2016/best_store/web/images/21.jpg',
-        id: '02',
+       
         name: 'Giày lười nam',
         description: 'Sang trọng, phong cách mạnh mẽ',
         price: 300000,
@@ -59,7 +59,7 @@ var products = [
 
     new Product({
         image: 'https://p.w3layouts.com/demos/21-03-2016/best_store/web/images/24.jpg',
-        id: '03',
+        
         name: 'Áo khoác nam',
         description: 'Sang trọng, phong cách mạnh mẽ',
         price: 600000,
@@ -68,7 +68,7 @@ var products = [
 
     new Product({
         image: 'https://p.w3layouts.com/demos/21-03-2016/best_store/web/images/7.jpg',
-        id: '04',
+        
         name: 'Áo sơ mi nữ',
         description: 'Sang trọng, phong cách mạnh mẽ',
         price: 400000,
@@ -77,7 +77,7 @@ var products = [
 
     new Product({
         image: 'https://p.w3layouts.com/demos/21-03-2016/best_store/web/images/22.jpg',
-        id: '05',
+        
         name: 'Giày nữ',
         description: 'Sang trọng, phong cách mạnh mẽ',
         price: 200000,
@@ -85,7 +85,7 @@ var products = [
     }),
     new Product({
         image: 'https://p.w3layouts.com/demos/21-03-2016/best_store/web/images/25.jpg',
-        id: '06',
+        
         name: 'Áo khoác nữ',
         description: 'Sang trọng, phong cách mạnh mẽ',
         price: 700000,
@@ -94,7 +94,7 @@ var products = [
 
     new Product({
         image: 'https://p.w3layouts.com/demos/21-03-2016/best_store/web/images/20.jpg',
-        id: '07',
+       
         name: 'Áo sơ mi nam',
         description: 'Sang trọng, phong cách mạnh mẽ',
         price: 1000000,
@@ -103,7 +103,7 @@ var products = [
 
     new Product({
         image: 'https://p.w3layouts.com/demos/21-03-2016/best_store/web/images/23.jpg',
-        id: '08',
+        
         name: 'Giày thể thao nam',
         description: 'Sang trọng, phong cách mạnh mẽ',
         price: 900000,
@@ -112,7 +112,7 @@ var products = [
 
     new Product({
         image: 'https://p.w3layouts.com/demos/21-03-2016/best_store/web/images/26.jpg',
-        id: '09',
+        
         name: 'Áo khoác ngoài',
         description: 'Sang trọng, phong cách mạnh mẽ',
         price: 1200000,
@@ -120,7 +120,7 @@ var products = [
     }),
     new Product({
         image: '/images/36.jpg',
-        id: '10',
+        
         name: 'Đồng hồ nam',
         description: 'Sang trọng, phong cách mạnh mẽ',
         price: 1200000,
@@ -129,7 +129,7 @@ var products = [
 
     new Product({
         image: '/images/35.jpg',
-        id: '11',
+        
         name: 'Đồng hồ nữ',
         description: 'Sang trọng, phong cách mạnh mẽ',
         price: 1200000,

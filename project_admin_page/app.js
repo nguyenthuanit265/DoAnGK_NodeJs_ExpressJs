@@ -69,7 +69,9 @@ app.use(function (req, res, next) {
   res.locals.session = req.session;
   next();
 });
-
+app.get('/admin/login', function(req, res) {
+  res.render('login/index', { layout: '' });
+});
 app.use('/admin', indexRouter);
 
 // app.put('/',indexRouter);

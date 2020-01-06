@@ -23,46 +23,30 @@
                             <tr>
                                 <th>STT</th>
                                 <th>Tiêu Đề</th>
+                                <th>Mô tả</th>
                                 <th>Hình Đại Diện</th>
-                                <th>Số Bài Học</th>
                                 <th>Giá Bán</th>
+                                <th>Danh mục</th>
                                 <th>Hành Động</th>
                             </tr>
                         </thead>
                         <tbody>
+                            {{#each products}}
                             <tr>
-                                <th>1</th>
-                                <td>Javascript</td>
-                                <td><img src='/assets/images/1.png' height="50" class="p-1 border" /></td>
-                                <td>20</td>
-                                <td class="text-danger font-weight-bold">1.200.000 đ</td>
+                                <th>{{@key}}</th>
+                                <td>{{name}}</td>
+                                <td>{{description}}</td>
+                                <td><img src='{{image}}' height="50" class="p-1 border" /></td>
+                                
+                                <td class="text-danger font-weight-bold">{{price}}</td>
+                                <td>{{category.name}}</td>
                                 <td>
-                                    <a href="/admin/product/add" class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
-                                    <a href="#" class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
+                                     <a href="/admin/product/update-img/{{_id}}" class="btn btn-sm btn-success btn-round py-1 font-weight-bold">Cập nhật hình ảnh</a>
+                                   <a href="/admin/product/edit/{{_id}}" class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
+                                    <a href="/admin/product/delete/{{_id}}" class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>ReactJs</td>
-                                <td><img src='/assets/images/1.png' height="50" class="p-1 border" /></td>
-                                <td>30</td>
-                                <td class="text-danger font-weight-bold">1.500.000 đ</td>
-                                <td>
-                                    <a href="/admin/product/add" class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
-                                    <a href="#" class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>3</th>
-                                <td>Angular 7</td>
-                                <td><img src='/assets/images/1.png' height="50" class="p-1 border" /></td>
-                                <td>20</td>
-                                <td class="text-danger font-weight-bold">1.500.000 đ</td>
-                                <td>
-                                    <a href="/admin/product/add" class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
-                                    <a href="#" class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
-                                </td>
-                            </tr>
+                             {{/each}}
                         </tbody>
                     </table>
                 </div>
