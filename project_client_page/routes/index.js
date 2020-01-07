@@ -9,6 +9,7 @@ var emailController = require('../controllers/emailController');
 var furnitureController = require('../controllers/furnitureController');
 var checkoutController = require('../controllers/checkoutController');
 var logoutController = require('../controllers/logoutController');
+var profieController = require('../controllers/profieController');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user');
@@ -96,7 +97,11 @@ router.get('/furniture', furnitureController.furniture);
 //CHECKOUT
 router.get('/checkout', checkoutController.checkout);
 
+//PROFIE
+router.post('/profie', profieController.postProfie);
 
+router.get('/profie', profieController.profie);
 
+router.post('/profie_password', profieController.postPassword);
 
 module.exports = router;

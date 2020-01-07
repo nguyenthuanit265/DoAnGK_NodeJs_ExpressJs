@@ -6,6 +6,7 @@ var UserSchema = new Schema(
   {
     username: { type: String, required: true, max: 100 },
     email: { type: String, required: true, max: 100 },
+    phone: {type: String, required: true, max: 11},
     password: { type: String, required: true, max: 100 },
     role: { type: Schema.Types.ObjectId, ref: 'Role', required: true }
   }

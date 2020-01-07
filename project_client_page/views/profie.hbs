@@ -1,0 +1,56 @@
+<!-- breadcrumbs -->
+	<div class="breadcrumbs">
+		<div class="container">
+			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+				<li><a href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang chủ</a></li>
+				<li class="active">Thông tin cá nhân</li>
+			</ol>
+		</div>
+	</div>
+<!-- //breadcrumbs -->
+<!-- register -->
+	<div class="register">
+		<div class="container">
+			<h3 class="animated wow zoomIn" data-wow-delay=".5s">Thông tin cá nhân</h3>
+			{{#if session.userSession}}
+			<div class="login-form-grids">
+				<span class="text-danger text-center">{{message}}</span>
+				<h6 class="animated wow slideInUp" data-wow-delay=".5s">Thông tin cá nhân</h6>
+				<form class="animated wow slideInUp" data-wow-delay=".5s" action="/profie" method="POST">
+					<input type="email" value="{{session.userSession.email}}" required=" " name="email">
+					<input type="text" value="{{session.userSession.phone}}" required=" " name="phone" minlength="6" maxlength="11">
+					<input type="hidden" value="{{session.userSession._id}}" required=" " name="id">
+					<input type="hidden" value="{{session.userSession.password}}" name="password" required=" ">
+					<input type="submit" value="Chỉnh sửa thông tin">
+				</form>
+			</div>
+			{{else}}
+			Vui lòng đăng xuất hoặc đăng nhập lại
+			<div class="register-home animated wow slideInUp" data-wow-delay=".5s">
+				<a href="/home">Trang chủ</a>
+			</div>
+			{{/if}}
+		</div>
+	</div>
+	<div class="register">
+		<div class="container">
+			<h3 class="animated wow zoomIn" data-wow-delay=".5s">Thay đổi mật khẩu</h3>
+			{{#if session.userSession}}
+			<div class="login-form-grids">
+				<span class="text-danger text-center">{{message}}</span>
+				<h6 class="animated wow slideInUp" data-wow-delay=".5s">Thay đổi mật khẩu</h6>
+				<form class="animated wow slideInUp" data-wow-delay=".5s" action="/profie_password" method="POST">
+					<input type="password" placeholder="Mật khẩu cũ" name="oldpassword" minlength="6" required>
+					<input type="password" placeholder="Mật khẩu mới" name="newpassword" minlength="6" required>
+					<input type="submit" value="Đổi mật khẩu">
+				</form>
+			</div>
+			{{else}}
+			Vui lòng đăng xuất hoặc đăng nhập lại
+			<div class="register-home animated wow slideInUp" data-wow-delay=".5s">
+				<a href="/home">Trang chủ</a>
+			</div>
+			{{/if}}
+		</div>
+	</div>
+<!-- //register -->

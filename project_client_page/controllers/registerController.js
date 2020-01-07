@@ -22,6 +22,7 @@ exports.postRegister = (req, res, next) => {
     let username = req.body.username;
     let password = req.body.password;
     let email = req.body.email;
+    let phone = req.body.phone;
     let salt = bcrypt.genSaltSync(10);
     password = bcrypt.hashSync(password, salt);
     let user = User.findOne({ username: req.body.username },
@@ -38,8 +39,9 @@ exports.postRegister = (req, res, next) => {
                     user = new User({
                         username: username,
                         email: email,
+                        phone: phone,
                         password: password,
-                        role: list_roles[2]
+                        role: list_roles[3]
                     });
                     //console.log(user);
                     user.save(function (err, result) {
