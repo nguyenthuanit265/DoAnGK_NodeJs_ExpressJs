@@ -22,7 +22,7 @@
                                 <th>STT</th>
                                 <th>Họ Tên</th>
                                 <th>Email</th>
-                                <th>Password</th>
+                                
                                 <th>Quyền</th>
                                 <th>#</th>
                             </tr>
@@ -33,9 +33,10 @@
                                 <th>{{@index}}</th>
                                 <td>{{username}}</td>
                                 <td>{{email}}</td>
-                                <td>{{password}}</td>
+                                
                                 <td>{{role.description}}</td>
                                 <td>
+                                     <a href="/admin/user/detail/{{_id}}" class="btn btn-sm btn-success btn-round py-1 font-weight-bold">Xem</a>
                                     <a href="/admin/user/edit/{{_id}}" class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
                                     <a href="/admin/user/delete/{{_id}}" class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
                                 </td>

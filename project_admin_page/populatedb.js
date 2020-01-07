@@ -2,6 +2,9 @@ var Product = require('./models/product');
 var Role = require('./models/role');
 var User = require('./models/user');
 var Category = require('./models/category');
+var Bill = require('./models/bill');
+var DetailBill = require('./models/detail-bill');
+var Comment = require('./models/comment');
 // Get arguments passed on command line
 var userArgs = process.argv.slice(2);
 var mongoose = require('mongoose');
@@ -182,12 +185,92 @@ var users = [
         email: 'superadmin@gmail.com',
         password: '123456',
         role:  roles[0]
+    }),
+    new User({
+        username: 'user',
+        email: 'user@gmail.com',
+        password: '123456',
+        role:  roles[2]
     })
 
 
 ]
 for (var i = 0; i < users.length; i++) {
     users[i].save(function (err, result) {
+    });
+}
+
+var bills = [
+    new Bill({
+        dateBill:  '2020-01-07',
+        user: users[1]  ,
+        price:  100000,
+    }),
+    new Bill({
+        dateBill:  '2020-01-06',
+        user: users[1]  ,
+        price:  100000,
+    }),
+    new Bill({
+        dateBill:  '2020-01-05',
+        user: users[1]  ,
+        price:  100000,
+    })
+]
+for (var i = 0; i < bills.length; i++) {
+    bills[i].save(function (err, result) {
+    });
+}
+
+
+var detailBills = [
+    new DetailBill({
+        bill:  bills[2],
+        product:  products[0],
+        quantity:  1,
+    }),
+    new DetailBill({
+        bill:  bills[2],
+        product:  products[1],
+        quantity:  1,
+    }),
+    new DetailBill({
+        bill:  bills[1],
+        product:  products[3],
+        quantity:  1,
+    }),
+    new DetailBill({
+        bill:  bills[0],
+        product:  products[4],
+        quantity:  1,
+    })
+]
+for (var i = 0; i < detailBills.length; i++) {
+    detailBills[i].save(function (err, result) {
+    });
+}
+
+
+
+var comments = [
+    new Comment({
+        content: 'aaaaaaaa',
+        product: products[0],
+        user: users[1]
+    }),
+    new Comment({
+        content: 'bbbbbbbbb',
+        product: products[1],
+        user: users[1]
+    }),
+    new Comment({
+        content: 'ccccccc',
+        product: products[2],
+        user: users[1]
+    })
+]
+for (var i = 0; i < comments.length; i++) {
+    comments[i].save(function (err, result) {
     });
 }
 

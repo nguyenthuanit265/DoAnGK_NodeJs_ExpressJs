@@ -10,7 +10,7 @@
 			<div class="col-md-1"></div>
 		</div>
 		
-{{!-- 		
+	
 		<div class="row">
 
 			<div class="col-sm-12">
@@ -32,19 +32,24 @@
 									</tr>
 								</thead>
 								<tbody>
-
-									<tr th:each="item : ${bills}">
-										<td th:text="${ itemStat.index + 1 }"></td>
+									{{#each bills}}
+									<tr>
+										<td>{{@key}}</td>
+										<td>{{dateBill}}</td>
+										<td></td>
+										<td>{{price}} đ</td>
+										{{!-- <td th:text="${ itemStat.index + 1 }"></td>
 										<td th:text="${ item.year }"></td>
 										<td th:text="${ item.totalBill }"></td>
-										<td th:text="${ item.formatTotalPrice }">đ</td>
+										<td th:text="${ item.formatTotalPrice }">đ</td> --}}
 										
 									</tr>
+									{{/each}}
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div> --}}
+		</div>
 	</section>

@@ -19,25 +19,21 @@
                 <h2 class="text-uppercase text-center">Thêm mới gian hàng</h2>
             </div>
             <div class="card-block">
-                <form action="${ action }" method="post" modelAttribute="category">
+                <form action="/admin/category/add" method="post">
                     <div class="row">
                         <div class="col-md-6 m-auto">
                             <div class="form-group">
                                 <label>Tiêu đề</label>
-                                <input type="text" path="title" class="form-control" />
+                                <input type="text" path="name" name="name" class="form-control" />
                             </div>
-                            <div class="form-group">
-                                <label>Icon</label>
-                                <input type="text" path="icon" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label>Vị trí</label>
-                                <input type="number" path="orderIndex" class="form-control" />
-                            </div>
+                             {{!-- <div class="form-group">
+                                <label>Date</label>
+                                <input type="date" name="date" class="form-control" />
+                            </div> --}}
                             <div class="form-group mt-3">
                                 <button type="submit" class="btn btn-primary m-b-0">Lưu
                                     lại</button>
-                                <a href="/admin/department" class="btn btn-secondary text-white">Quay
+                                <a href="/admin/category" class="btn btn-secondary text-white">Quay
                                     lại</a>
                             </div>
                         </div>
