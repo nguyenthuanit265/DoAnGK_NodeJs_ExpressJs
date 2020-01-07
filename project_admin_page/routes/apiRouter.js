@@ -24,6 +24,9 @@ router.use(session({
 
 router.get('/product', apiProduct.product_list);
 router.get('/product/size/8', apiProduct.getList)
+router.get('/product/category', apiProduct.getListByCategory)
+router.get('/product/single/:id', apiProduct.productDetail);
+
 router.get('/category', apiCategory.getList);
 
 module.exports = router;

@@ -16,7 +16,7 @@ var indexRouter = require('./routes/index');
 var registerRouter = require('./routes/register');
 
 var app = express();
-
+app.set('port', 8081);
 
 
 
@@ -84,5 +84,5 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-// app.listen(3000, () => console.log('Server started listening on port 3000!'))
+app.listen(app.get('port'));
 module.exports = app;

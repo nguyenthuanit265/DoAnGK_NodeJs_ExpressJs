@@ -19,30 +19,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- //for-mobile-apps -->
 	<link href="/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
-	<!-- js -->
-	<script src="/js/jquery.min.js"></script>
-	<!-- //js -->
-	<!-- cart -->
-	<script src="/js/simpleCart.min.js"></script>
-	<!-- cart -->
-	<!-- for bootstrap working -->
-	<script type="text/javascript" src="/js/bootstrap-3.1.1.min.js"></script>
-	<!-- //for bootstrap working -->
-	<link
-		href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
-		rel='stylesheet' type='text/css'>
-	<link
-		href='//fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic'
-		rel='stylesheet' type='text/css'>
-	<!-- timer -->
-	<link rel="stylesheet" href="/css/jquery.countdown.css" />
-	<!-- //timer -->
-	<!-- animation-effect -->
-	<link href="/css/animate.min.css" rel="stylesheet">
-	<script src="/js/wow.min.js"></script>
-	<script>
-		new WOW().init();
-	</script>
+
 	<!-- //animation-effect -->
 </head>
 
@@ -105,6 +82,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li>
 							<i class="glyphicon glyphicon-log-in" aria-hidden="true"></i>
 							<a href="/login">Đăng nhập</a>
+
 						</li>
 						<li>
 							<i class="glyphicon glyphicon-book" aria-hidden="true"></i>
@@ -144,16 +122,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<ul class="nav navbar-nav">
 								<li class="active"><a href="/" class="act">Trang chủ</a></li>
 								<!-- Mega Menu -->
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Sản phẩm <b
-											class="caret"></b></a>
-									<ul class="dropdown-menu multi-column columns-3">
+
+								<li>
+									<a href="/product?page=1">Sản phẩm <b class="caret"></b></a>
+									{{!-- <ul class="dropdown-menu multi-column columns-3">
 										<div class="row">
 											<div class="col-sm-3">
 
 												<ul class="multi-column-dropdown">
 													<h6><a href="/product?page=1">Tất cả</a></h6>
-													
+
 												</ul>
 
 
@@ -185,7 +163,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											</div>
 											<div class="clearfix"></div>
 										</div>
-									</ul>
+									</ul> --}}
 								</li>
 								<li><a href="/mail">Liên hệ</a></li>
 							</ul>
@@ -215,9 +193,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="cart box_1">
 						<a href="/checkout">
 							<h3>
-								<div class="total">
-									<span class="simpleCart_total"></span> (<span id="simpleCart_quantity"
-										class="simpleCart_quantity"></span> sản phẩm)</div>
+								{{!-- CART --}}
+								{{!-- <div class="total">
+									<span class="simpleCart_total"></span> 
+									(<span id="simpleCart_quantity" class="simpleCart_quantity"></span> sản phẩm)
+								</div> --}}
+								<div id="myTotal">
+									<span id="mySimpleCart_total"></span>
+									(<span id="mySimpleCart_quantity" class="mySimpleCart_quantity"></span> sản phẩm)
+								</div>
 								<img src="/images/bag.png" alt="" />
 							</h3>
 						</a>
@@ -323,7 +307,621 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 		</div>
 	</div>
+
 	<!-- //footer -->
+
+
+	<!-- js -->
+
+	<script src="/js/jquery.min.js"></script>
+	<!-- //js -->
+	<!-- cart -->
+	<script src="/js/simpleCart.min.js"></script>
+	<!-- cart -->
+	<!-- for bootstrap working -->
+	<script type="text/javascript" src="/js/bootstrap-3.1.1.min.js"></script>
+	<!-- //for bootstrap working -->
+	<link
+		href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
+		rel='stylesheet' type='text/css'>
+	<link
+		href='//fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic'
+		rel='stylesheet' type='text/css'>
+	<!-- timer -->
+	<link rel="stylesheet" href="/css/jquery.countdown.css" />
+	<!-- //timer -->
+	<!-- animation-effect -->
+	<link href="/css/animate.min.css" rel="stylesheet">
+	<script src="/js/wow.min.js"></script>
+	<script>
+		new WOW().init();
+	</script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script>
+		$(function () {
+
+			// Make a request for a user with a given ID
+			axios.get('http://admin-page-express.herokuapp.com/api/category')
+				.then(function (response) {
+					// handle success
+					console.log(response.data.category);
+
+					let content = '';
+					// Lặp mảng trả về
+					response.data.category.forEach(function (element) {
+						// Cộng chuỗi
+						content += `
+                        					<li><button onclick='chooseFunction(this)' value=${element._id}>${element.name}</button></li>
+                        `;
+					});
+
+					// Thay đổi nội dung thẻ div có id = categoryMenu
+					$('#categoryMenu').html(content);
+				})
+				.catch(function (error) {
+					// handle error
+					console.log(error);
+				})
+				.finally(function () {
+					// always executed
+				});
+		})
+
+	</script>
+	<script>
+		$(function () {
+
+			// Make a request for a user with a given ID
+			axios.get('http://admin-page-express.herokuapp.com/api/product/size/8')
+				.then(function (response) {
+					// handle success
+					console.log(response.data.list_products);
+					let content = '';
+					// Lặp mảng trả về
+					response.data.list_products.forEach(function (element) {
+						// Cộng chuỗi
+						content += `
+                        					<div class="col-md-3 new-collections-grid">
+				<div class="new-collections-grid1 animated wow slideInUp" data-wow-delay=".5s">
+					<div class="new-collections-grid1-image">
+						<a href="/product/single/${element._id}" class="product-image"><img src="${element.image}" alt=" "
+								class="img-responsive" /></a>
+						<div class="new-collections-grid1-image-pos">
+							<a onclick='detailFunction(this)' value=${element._id} href="/product/single/${element._id}">Xem chi tiết</a>
+						</div>
+						<div class="new-collections-grid1-right">
+							<div class="rating">
+								<div class="rating-left">
+									<img src="/images/2.png" alt=" " class="img-responsive" />
+								</div>
+								<div class="rating-left">
+									<img src="/images/2.png" alt=" " class="img-responsive" />
+								</div>
+								<div class="rating-left">
+									<img src="/images/2.png" alt=" " class="img-responsive" />
+								</div>
+								<div class="rating-left">
+									<img src="/images/1.png" alt=" " class="img-responsive" />
+								</div>
+								<div class="rating-left">
+									<img src="/images/1.png" alt=" " class="img-responsive" />
+								</div>
+								<div class="clearfix"> </div>
+							</div>
+						</div>
+					</div>
+					<h4><a onclick='detailFunction(this)' value=${element._id} href="/product/single/${element._id}">${element.name}</a></h4>
+					<p>${element.description}</p>
+					<div class="new-collections-grid1-left simpleCart_shelfItem">
+						<p><span class="item_price">${element.price}</span>
+						<button onclick='cartFunction(this)' value=${element._id} type="button" class="item_add btn btn-warning">Thêm vào</button>
+						</p>
+					</div>
+				</div>
+			</div>
+			
+                        `;
+					});
+
+					// Thay đổi nội dung thẻ div có id = categoryMenu
+					$('#list_products').html(content);
+
+				})
+				.catch(function (error) {
+					// handle error
+					console.log(error);
+				})
+				.finally(function () {
+					// always executed
+				});
+		})
+
+	</script>
+
+	<script>
+		axios({
+			url: 'http://localhost:3000/api/product?page=1',
+			method: 'get',
+
+		})
+			.then(function (response) {
+				// your action after success
+				console.log(response.data.list_product);
+				let content = '';
+				// Lặp mảng trả về
+				response.data.list_product.forEach(function (element) {
+					// Cộng chuỗi
+					content += `
+                        					<div class="col-sm-4 products-right-grids-bottom-grid">
+						<div class="new-collections-grid1 products-right-grid1 animated wow slideInUp"
+							data-wow-delay=".5s">
+							<div class="new-collections-grid1-image">
+								<a href="/product/single/${element._id}" class="product-image"><img src="${element.image}" alt=" "
+										class="img-responsive"></a>
+								<div class="new-collections-grid1-image-pos products-right-grids-pos">
+									<a onclick='detailFunction(this)' value=${element._id} href="/product/single/${element._id}">Xem chi tiết</a>
+								</div>
+								<div class="new-collections-grid1-right products-right-grids-pos-right">
+									<div class="rating">
+										<div class="rating-left">
+											<img src="/images/2.png" alt=" " class="img-responsive">
+										</div>
+										<div class="rating-left">
+											<img src="/images/2.png" alt=" " class="img-responsive">
+										</div>
+										<div class="rating-left">
+											<img src="/images/2.png" alt=" " class="img-responsive">
+										</div>
+										<div class="rating-left">
+											<img src="/images/1.png" alt=" " class="img-responsive">
+										</div>
+										<div class="rating-left">
+											<img src="/images/1.png" alt=" " class="img-responsive">
+										</div>
+										<div class="clearfix"> </div>
+									</div>
+								</div>
+							</div>
+							<h4><a onclick='detailFunction(this)' value=${element._id} href="/product/single/${element._id}">${element.name}</a></h4>
+							<p>${element.description}</p>
+							<div class="simpleCart_shelfItem products-right-grid1-add-cart">
+								<p><span class="item_price">${element.price}VNĐ</span>
+								<button onclick='cartFunction(this)' value=${element._id} type="button" class="item_add btn btn-warning">Thêm vào</button>
+										</p>
+							</div>
+						</div>
+					</div>
+			
+                        `;
+				});
+
+				// Thay đổi nội dung thẻ div có id = categoryMenu
+				$('#products').html(content);
+
+			})
+			.catch(function (error) {
+				// your action on error success
+				console.log(error);
+			});
+
+
+
+	</script>
+
+	<script>
+		// let idListProducts;
+		chooseFunction = (objButton) => {
+			/* idListProducts = new Array();
+			idListProducts.push(objButton.value);
+			idListProducts.forEach(element => {
+				console.log(element);
+			}); */
+			let id = objButton.value;
+			axios({
+				url: 'http://localhost:3000/api/product/category?key=' + id,
+				method: 'get',
+
+			})
+				.then(function (response) {
+					// your action after success
+					console.log(response.data.list_productsByCategory);
+					let content = '';
+					// Lặp mảng trả về
+					response.data.list_productsByCategory.forEach(function (element) {
+						// Cộng chuỗi
+						content += `
+                        					<div class="col-sm-4 products-right-grids-bottom-grid">
+						<div class="new-collections-grid1 products-right-grid1 animated wow slideInUp"
+							data-wow-delay=".5s">
+							<div class="new-collections-grid1-image">
+								<a href="/product/single/${element._id}" class="product-image"><img src="${element.image}" alt=" "
+										class="img-responsive"></a>
+								<div class="new-collections-grid1-image-pos products-right-grids-pos">
+									<a onclick='detailFunction(this)' value=${element._id} href="/product/single/${element._id}">Xem chi tiết</a>
+								</div>
+								<div class="new-collections-grid1-right products-right-grids-pos-right">
+									<div class="rating">
+										<div class="rating-left">
+											<img src="/images/2.png" alt=" " class="img-responsive">
+										</div>
+										<div class="rating-left">
+											<img src="/images/2.png" alt=" " class="img-responsive">
+										</div>
+										<div class="rating-left">
+											<img src="/images/2.png" alt=" " class="img-responsive">
+										</div>
+										<div class="rating-left">
+											<img src="/images/1.png" alt=" " class="img-responsive">
+										</div>
+										<div class="rating-left">
+											<img src="/images/1.png" alt=" " class="img-responsive">
+										</div>
+										<div class="clearfix"> </div>
+									</div>
+								</div>
+							</div>
+							<h4><a onclick='detailFunction(this)' value=${element._id} href="/product/single/${element._id}">${element.name}</a></h4>
+							<p>${element.description}</p>
+							<div class="simpleCart_shelfItem products-right-grid1-add-cart">
+								<p><span class="item_price">${element.price}VNĐ</span>
+								<button onclick='cartFunction(this)' value=${element._id} type="button" class="item_add btn btn-warning">Thêm vào</button>
+										</p>
+							</div>
+						</div>
+					</div>
+			
+                        `;
+					});
+
+					// Thay đổi nội dung thẻ div có id = categoryMenu
+					$('#products').html(content);
+
+				})
+				.catch(function (error) {
+					// your action on error success
+					console.log(error);
+				});
+		}
+
+	</script>
+
+	<script>
+		// let idListProducts;
+		pageFunction = (objPage) => {
+			/* idListProducts = new Array();
+			idListProducts.push(objButton.value);
+			idListProducts.forEach(element => {
+				console.log(element);
+			}); */
+			let page = objPage.value;
+			console.log(page);
+			axios({
+				url: 'http://localhost:3000/api/product?page=' + page,
+				method: 'get',
+
+			})
+				.then(function (response) {
+					// your action after success
+					console.log(response.data.list_product);
+					let content = '';
+					// Lặp mảng trả về
+					response.data.list_product.forEach(function (element) {
+						// Cộng chuỗi
+						content += `
+							<div class="col-sm-4 products-right-grids-bottom-grid" >
+								<div class="new-collections-grid1 products-right-grid1 animated wow slideInUp"
+									data-wow-delay=".5s">
+									<div class="new-collections-grid1-image">
+										<a href="/product/single/${element._id}" class="product-image"><img src="${element.image}" alt=" "
+											class="img-responsive"></a>
+											<div class="new-collections-grid1-image-pos products-right-grids-pos">
+												<a onclick='detailFunction(this)' value=${element._id} href="/product/single/${element._id}">Xem chi tiết</a>
+											</div>
+											<div class="new-collections-grid1-right products-right-grids-pos-right">
+												<div class="rating">
+													<div class="rating-left">
+														<img src="/images/2.png" alt=" " class="img-responsive">
+										</div>
+														<div class="rating-left">
+															<img src="/images/2.png" alt=" " class="img-responsive">
+										</div>
+															<div class="rating-left">
+																<img src="/images/2.png" alt=" " class="img-responsive">
+										</div>
+																<div class="rating-left">
+																	<img src="/images/1.png" alt=" " class="img-responsive">
+										</div>
+																	<div class="rating-left">
+																		<img src="/images/1.png" alt=" " class="img-responsive">
+										</div>
+																		<div class="clearfix"> </div>
+																	</div>
+																</div>
+															</div>
+															<h4><a onclick='detailFunction(this)' value=${element._id} href="/product/single/${element._id}">${element.name}</a></h4>
+															<p>${element.description}</p>
+															<div class="simpleCart_shelfItem products-right-grid1-add-cart">
+																<p><span class="item_price">${element.price}VNĐ</span>
+																	<button onclick='cartFunction(this)' value=${element._id} type="button" class="item_add btn btn-warning">Thêm vào</button>
+																</p>
+															</div>
+														</div>
+													</div>
+
+													`;
+					});
+
+					// Thay đổi nội dung thẻ div có id = categoryMenu
+					$('#products').html(content);
+
+				})
+				.catch(function (error) {
+					// your action on error success
+					console.log(error);
+				});
+
+
+
+		}
+	</script>
+
+	<script>
+		//localStorage.removeItem('cartTotal');
+		//localStorage.removeItem('quantity');
+		//localStorage.removeItem('listProductCart');
+		//if (typeof(Storage) !== "undefined") {
+		//	document.getElementById("mySimpleCart_total").innerHTML = localStorage.getItem("cartTotal");
+		//	document.getElementById("mySimpleCart_quantity").innerHTML = localStorage.getItem("quantity");
+		//} else {
+		//	document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+		//}
+
+		var listProductCart = [];
+
+		cartFunction = (obj) => {
+			let idProductCart = obj.value;
+
+
+			console.log("id product cart: " + idProductCart);
+			axios.get('http://localhost:3000/api/product/single/' + idProductCart)
+				.then(function (response) {
+					// handle success
+					console.log(response.data.product);
+					let element = response.data.product;
+					if (typeof (Storage) !== "undefined") {
+						// Code for localStorage/sessionStorage.
+
+						// listProductCart = localStorage.getItem('listProductCart');;
+						listProductCart.push(response.data.product);
+						localStorage.setItem('listProductCart', JSON.stringify(listProductCart));
+						console.log(JSON.stringify(listProductCart));
+
+						let totalPrice = localStorage.getItem('cartTotal');
+						let quantity = localStorage.getItem('quantity');
+						if (totalPrice === null) totalPrice = element.price;
+						if (quantity === null) quantity = 1;
+						let content = `
+							<span id="mySimpleCart_total">${totalPrice}</span>
+							(<span id="mySimpleCart_quantity" class="mySimpleCart_quantity">${quantity}</span> sản phẩm)
+					`;
+
+						$('#myTotal').html(content);
+
+						localStorage.setItem('cartTotal', Number(element.price) + Number(totalPrice));
+						localStorage.setItem('quantity', Number(quantity) + 1);
+					} else {
+						// Sorry! No Web Storage support..
+					}
+
+				})
+				.catch(function (error) {
+					// handle error
+					console.log(error);
+				})
+				.finally(function () {
+					// always executed
+				});
+		}
+
+		/*		let content = `
+					<span id="mySimpleCart_total">${localStorage.getItem("cartTotal")}</span>
+					(<span id="mySimpleCart_quantity" class="mySimpleCart_quantity">${localStorage.getItem("quantity")}</span> sản phẩm)
+			`;
+				$('#myTotal').html(content);
+		*/
+	</script>
+	<script>
+		if (typeof (Storage) !== "undefined") {
+			// Code for localStorage/sessionStorage.
+
+			var listProductCart = JSON.parse(localStorage.getItem("listProductCart") || "[]");
+			let content = '';
+			let bill = '';
+			console.log(listProductCart);
+			$('#lengthCart').html('Giỏ hàng đang có ' + '<span>' + listProductCart.length + ' sản phẩm</span>');
+			let startIndex = 0;
+			let totalPrice = 0;
+			listProductCart.forEach((element) => {
+				totalPrice +=element.price ;
+				content += `
+						<tr class="rem1">
+							<td class="invert">${++startIndex}</td>
+							<td class="invert-image"><a href="/product/single/${element._id}"><img src="${element.image}" alt=" "
+										class="img-responsive" /></a></td>
+							
+							<td class="invert">${element.name}</td>
+							
+							<td class="invert">${element.price} đ</td>
+							<td class="invert">
+								<div class="rem">
+									<button onclick='closeFunction(this)' value=${element._id} class="close1"> </button>
+								</div>
+								
+							</td>
+					</tr>
+					`;
+
+
+				bill += `
+				
+						<li>Sản phẩm ${startIndex} <i>-</i> <span>${element.price} đ</span></li>
+					
+				`;
+
+				$('#listCart').html(content);
+				$('#bill').html(bill);
+			})
+			$('#totalPrice').html('Tổng tiền : <span>'+totalPrice+' đ</span>');
+
+
+		} else {
+			// Sorry! No Web Storage support..
+		}
+	</script>
+
+
+
+	{{!-- <script>
+		detailFunction = (obj) => {
+			let id = obj.value;
+			let ID = req.params.id;
+			console.log('id detail product: ' + ID);
+			axios({
+				url: 'http://localhost:3000/api/product/single/' + id,
+				method: 'get',
+
+			})
+				.then(function (response) {
+					// your action after success
+					console.log(response);
+					let content = '';
+					// Lặp mảng trả về
+					response.data.product.forEach(function (element) {
+						// Cộng chuỗi
+						content += `
+                        					<div class="col-md-5 single-right-left animated wow slideInUp" data-wow-delay=".5s">
+					<div class="flexslider">
+						<ul class="slides">
+							<li data-thumb="{{product.image}}">
+								<div class="thumb-image"> <img src="{{product.image}}" data-imagezoom="true"
+										class="img-responsive"> </div>
+							</li>
+							<li data-thumb="{{product.image}}">
+								<div class="thumb-image"> <img src="{{product.image}}" data-imagezoom="true"
+										class="img-responsive"> </div>
+							</li>
+							<li data-thumb="{{product.image}}">
+								<div class="thumb-image"> <img src="{{product.image}}" data-imagezoom="true"
+										class="img-responsive"> </div>
+							</li>
+						</ul>
+					</div>
+					<!-- flixslider -->
+					<script defer src="/js/jquery.flexslider.js"></script>
+	<link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="screen" />
+	<script>
+						// Can also be used with $(document).ready()
+						$(window).load(function () {
+							$('.flexslider').flexslider({
+								animation: "slide",
+								controlNav: "thumbnails"
+							});
+						});
+	</script>
+	<!-- flixslider -->
+	</div>
+	<div class="col-md-7 single-right-left simpleCart_shelfItem animated wow slideInRight" data-wow-delay=".5s">
+		<h3>{{product.name}}</h3>
+		<h4><span class="item_price">${element.price}</span></h4>
+		<div class="rating1">
+			<span class="starRating">
+				<input id="rating5" type="radio" name="rating" value="5">
+				<label for="rating5">5</label>
+				<input id="rating4" type="radio" name="rating" value="4">
+				<label for="rating4">4</label>
+				<input id="rating3" type="radio" name="rating" value="3" checked>
+				<label for="rating3">3</label>
+				<input id="rating2" type="radio" name="rating" value="2">
+				<label for="rating2">2</label>
+				<input id="rating1" type="radio" name="rating" value="1">
+				<label for="rating1">1</label>
+			</span>
+		</div>
+		<div class="description">
+			<h5><i>Mô tả</i></h5>
+			<p>{{product.description}}</p>
+		</div>
+		<div class="color-quality">
+			<div class="color-quality-left">
+				<h5>Color : </h5>
+				<ul>
+					<li><a href="#"><span></span>Red</a></li>
+					<li><a href="#" class="brown"><span></span>Yellow</a></li>
+					<li><a href="#" class="purple"><span></span>Purple</a></li>
+					<li><a href="#" class="gray"><span></span>Violet</a></li>
+				</ul>
+			</div>
+			<div class="color-quality-right">
+				<h5>Loại :</h5>
+				<select id="country1" onchange="change_country(this.value)" class="frm-field required sect">
+					<option value="null">5 Qty</option>
+					<option value="null">6 Qty</option>
+					<option value="null">7 Qty</option>
+					<option value="null">10 Qty</option>
+				</select>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+		<div class="occasional">
+			<h5>Occasion :</h5>
+			<div class="colr ert">
+				<label class="radio"><input type="radio" name="radio" checked=""><i></i>Casual Wear</label>
+			</div>
+			<div class="colr">
+				<label class="radio"><input type="radio" name="radio"><i></i>Party Wear</label>
+			</div>
+			<div class="colr">
+				<label class="radio"><input type="radio" name="radio"><i></i>Formal Wear</label>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+		<div class="occasion-cart">
+			<a class="item_add" href="#">Thêm vào giỏ </a>
+		</div>
+		<div class="social">
+			<div class="social-left">
+				<p>Share On :</p>
+			</div>
+			<div class="social-right">
+				<ul class="social-icons">
+					<li><a href="#" class="facebook"></a></li>
+					<li><a href="#" class="twitter"></a></li>
+					<li><a href="#" class="g"></a></li>
+					<li><a href="#" class="instagram"></a></li>
+				</ul>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+
+	`;
+	});
+
+	// Thay đổi nội dung thẻ div có id = categoryMenu
+	$('#productDetail').html(content);
+
+	})
+	.catch(function (error) {
+	// your action on error success
+	console.log(error);
+	});
+
+
+
+	}
+
+	</script> --}}
+
 </body>
 
 </html>

@@ -95,9 +95,9 @@
 <div class="new-collections">
 	<div class="container">
 		<h3 class="animated wow zoomIn" data-wow-delay=".5s">Hàng mới</h3>
-		<div class="new-collections-grids">
+		<div id="list_products" class="new-collections-grids">
 
-			{{#each product_list}}
+			{{!-- {{#each product_list}}
 			<div class="col-md-3 new-collections-grid">
 				<div class="new-collections-grid1 animated wow slideInUp" data-wow-delay=".5s">
 					<div class="new-collections-grid1-image">
@@ -135,7 +135,47 @@
 					</div>
 				</div>
 			</div>
-			{{/each}}
+			{{/each}} --}}
+			
+			<div class="col-md-3 new-collections-grid">
+				<div class="new-collections-grid1 animated wow slideInUp" data-wow-delay=".5s">
+					<div class="new-collections-grid1-image">
+						<a href="/product/single/{{_id}}" class="product-image"><img src="{{image}}" alt=" "
+								class="img-responsive" /></a>
+						<div class="new-collections-grid1-image-pos">
+							<a href="/product/single/{{_id}}">Xem chi tiết</a>
+						</div>
+						<div class="new-collections-grid1-right">
+							<div class="rating">
+								<div class="rating-left">
+									<img src="/images/2.png" alt=" " class="img-responsive" />
+								</div>
+								<div class="rating-left">
+									<img src="/images/2.png" alt=" " class="img-responsive" />
+								</div>
+								<div class="rating-left">
+									<img src="/images/2.png" alt=" " class="img-responsive" />
+								</div>
+								<div class="rating-left">
+									<img src="/images/1.png" alt=" " class="img-responsive" />
+								</div>
+								<div class="rating-left">
+									<img src="/images/1.png" alt=" " class="img-responsive" />
+								</div>
+								<div class="clearfix"> </div>
+							</div>
+						</div>
+					</div>
+					<h4><a href="/product/single/{{_id}}">{{name}}</a></h4>
+					<p>{{description}}</p>
+					<div class="new-collections-grid1-left simpleCart_shelfItem">
+						<p><span class="item_price">${{price}}</span><a class="item_add" href="/checkout">Thêm vào</a>
+						</p>
+					</div>
+				</div>
+			</div>
+			
+
 
 
 
@@ -255,3 +295,4 @@
 		}
 	}
 </script>
+

@@ -39,7 +39,9 @@
 			</div>
 			<div class="categories animated wow slideInUp" data-wow-delay=".5s">
 				<h3>Danh mục</h3>
-				<ul class="cate">
+				
+				{{!-- AXIOS --}}
+				<ul id="categoryMenu" class="cate"> 
 					<li><a href="/product">Bán chạy</a></li>
 					<li><a href="/product?key=men">Nam</a></li>
 					<ul>
@@ -197,8 +199,9 @@
 
 			<div class="products-right-grids-bottom">
 
-				<div class="row">
-					{{#each product_list}}
+				{{!-- AXIOS --}}
+				<div id="products" class="row">
+					{{!-- {{#each product_list}}
 					
 					<div class="col-sm-4 products-right-grids-bottom-grid">
 						<div class="new-collections-grid1 products-right-grid1 animated wow slideInUp"
@@ -238,7 +241,7 @@
 							</div>
 						</div>
 					</div>
-					{{/each}}
+					{{/each}} --}}
 					<div class="clearfix"> </div>
 
 				</div>
@@ -248,24 +251,21 @@
 			<nav class="numbering animated wow slideInRight" data-wow-delay=".5s">
 				<ul class="pagination paging">
 					<li>
-						<a href="/product?page=1" aria-label="Previous">
+						<button class="btn btn-link" onclick="pageFunction(this)" value=1 href="/product?page=1" aria-label="Previous">
 							<span aria-hidden="true">&laquo;</span>
-						</a>
+						</button>
 					</li>
 					
 					{{#each pagination}}
 					
-					<li><a href="/product?page={{this}}">{{this}}</a></li>
-					{{!-- <li><a href="/product?page={{@key}}">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li> --}}
+					<li><button class="btn btn-link" onclick="pageFunction(this)" value={{this}} href="/product?page={{this}}">{{this}}</button></li>
+					
 						
 					{{/each}}
 					<li>
-						<a href="/product?page={{last_page}}" aria-label="Next">
+						<button class="btn btn-link" onclick="pageFunction(this)" value={{last_page}} href="/product?page={{last_page}}" aria-label="Next">
 							<span aria-hidden="true">&raquo;</span>
-						</a>
+						</button>
 					</li>
 				</ul>
 			</nav>
