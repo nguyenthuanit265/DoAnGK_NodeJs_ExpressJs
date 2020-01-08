@@ -70,18 +70,40 @@ exports.login = (req, res, next) => {
 exports.postLogin = (req, res, next) => {
     console.log(req.body.email);
     console.log(req.body.password);
-    passport.authenticate('local', {
-        successRedirect: '/admin/home',
-        failureRedirect: '/admin/login',
-        withCredentials:true,
-        failureFlash: true,
-    }),
-        function (req, res) {
-            // set session
-        
-        }
+    // passport.authenticate('local', {
+    //     successRedirect: '/admin/home',
+    //     failureRedirect: '/admin/login',
+    //     withCredentials: true,
+    //     failureFlash: true,
+    // }),
+    //     function (req, res) {
+    //         // set session
 
-    res.redirect('/admin/home');
+    //     }
+        User.findOne({ email: req.body.email }, function (err, user) {
+            // if there are any errors, return the error before anything else
+            if (err)
+                return done(err);
+
+            // if no user is found, return the message
+            if (!user){
+                //return done(null, false, req.flash('message', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
+                res.render('login/index', { layout: '', message:'No user found.' });
+           
+            }
+            // if the user is found but the password is wrong
+            console.log(user)
+            if (!user.validPassword(req.body.password)){
+                //return done(null, false, req.flash('message', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
+
+                res.render('login/index', { layout: '', message:'Oops! Wrong password.' });
+            }
+            req.session.user = JSON.stringify(user);
+            console.log(req.session.user)
+            res.redirect('/admin/home');
+        })
+    
+    
 };
 
 

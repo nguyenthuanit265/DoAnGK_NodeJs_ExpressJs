@@ -22,7 +22,7 @@
                                 <th>STT</th>
                                 <th>Tên Quyền</th>
                                 <th>Mô Tả</th>
-                                <th>Hành Động</th>
+                                {{!-- <th>Hành Động</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -31,9 +31,9 @@
                                 <th>{{@key}}</th>
                                 <td>{{name}}</td>
                                 <td>{{description}}</td>
-                                <td><a href="/admin/role/edit/{{_id}}" class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
+                                {{!-- <td><a href="/admin/role/edit/{{_id}}" class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
                                     <a href="/admin/role/delete/{{_id}}" class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
-                                </td>
+                                </td> --}}
                             </tr>
                             {{/each}}
                             

@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var bodyParser = require('body-parser');
 var flash = require("connect-flash");
 var session = require('express-session');
 var bcrypt = require('bcryptjs');
@@ -14,8 +15,9 @@ var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/apiRouter');
 const Handlebars = require('handlebars-helpers');
 var methodOverride = require('method-override');
+var User = require('./models/user');
 var cors = require('cors')
-require('./config/passport')(passport);
+// require('./config/passport')(passport);
 const { ensureAuthenticated, forwardAuthenticated } = require('./config/auth');
 // var loginController = require('./controllers/loginController');
 var app = express()
@@ -43,13 +45,19 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // passport initialize
+app.use(express.static("public"));
+app.use(session({ secret: "cats" }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
-passport.serializeUser(function (user, done) {
-  done(null, user);
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
 });
-passport.deserializeUser(function (user, done) {
-  done(null, user);
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
 });
 //flash
 app.use(flash());
@@ -75,20 +83,20 @@ app.use(function (req, res, next) {
   next();
 });
 app.use('/admin', indexRouter);
-app.use('/api',cors(),apiRouter);
-// route middleware để kiểm tra một user đã đăng nhập hay chưa?
-function isLoggedIn(req, res, next) {
-  // Nếu một user đã xác thực, cho đi tiếp
-  console.log(req.originalUrl);
-  console.log(req.isAuthenticated());
+function adminIsLoggedIn(req, res, next) {
+
   if (req.originalUrl === '/admin/login')
     return next();
 
+  // if user is authenticated in the session, carry on 
   if (req.isAuthenticated())
     return next();
-  // Nếu chưa, đưa về trang chủ
-  res.redirect('/admin/login');
+
+  // if they aren't redirect them to the home page
+  res.render('login/index',{ layout: '' });
 }
+app.use('/api', cors(), apiRouter);
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

@@ -184,13 +184,15 @@ var users = [
         username: 'super admin',
         email: 'superadmin@gmail.com',
         password: '123456',
-        role:  roles[0]
+        role:  roles[0],
+        isDelete:true
     }),
     new User({
         username: 'user',
         email: 'user@gmail.com',
         password: '123456',
-        role:  roles[2]
+        role:  roles[2],
+        isDelete:true
     })
 
 

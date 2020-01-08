@@ -13,16 +13,17 @@
             <div class="card-header px-0 pb-2">
                 <h2 class="text-uppercase text-center">Danh sách tài khoản</h2>
                 <a href="/admin/user/add" class="btn btn-sm btn-primary">Thêm mới</a>
+                <a href="/admin/user/is-delete" class="btn btn-sm btn-primary">Người dùng đã xóa</a>
             </div>
             <div class="card-block table-border-style">
                 <div class="table-responsive">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" id="dtBasicExample">
                         <thead>
                             <tr>
                                 <th>STT</th>
                                 <th>Họ Tên</th>
                                 <th>Email</th>
-                                
+
                                 <th>Quyền</th>
                                 <th>#</th>
                             </tr>
@@ -33,12 +34,15 @@
                                 <th>{{@index}}</th>
                                 <td>{{username}}</td>
                                 <td>{{email}}</td>
-                                
+
                                 <td>{{role.description}}</td>
                                 <td>
-                                     <a href="/admin/user/detail/{{_id}}" class="btn btn-sm btn-success btn-round py-1 font-weight-bold">Xem</a>
-                                    <a href="/admin/user/edit/{{_id}}" class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
-                                    <a href="/admin/user/delete/{{_id}}" class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
+                                    <a href="/admin/user/detail/{{_id}}"
+                                        class="btn btn-sm btn-success btn-round py-1 font-weight-bold">Xem</a>
+                                    <a href="/admin/user/edit/{{_id}}"
+                                        class="btn btn-sm btn-info btn-round py-1 font-weight-bold">Sửa</a>
+                                    <a href="/admin/user/delete/{{_id}}"
+                                        class="btn btn-sm btn-danger btn-round py-1 font-weight-bold">Xóa</a>
                                 </td>
                             </tr>
                             {{/each}}

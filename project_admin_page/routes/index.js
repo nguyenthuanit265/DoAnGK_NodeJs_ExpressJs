@@ -16,13 +16,13 @@ var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user');
 var multer = require('multer');
 var upload = multer({ dest: '/tmp/' });
-const {ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
+const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 /* GET home page. */
-router.get('/*', function (req, res, next) {
-    res.locals.data = req.session.userSession;
-    next();
-});
-
+// router.get('/*', (req, res) => {
+//     console.log("req user", req.user);
+//     res.locals.data = req.session.userSession;
+//     next();
+// });
 router.use(session({
     secret: 'secret',
     resave: true,
@@ -30,10 +30,13 @@ router.use(session({
     proxy: true, // add this line
     cookie: {
         secure: true,
-        maxAge: 3600000,
+        maxAge: 3600000
         //store: new MongoStore({ url: config.DB_URL })
     }
-}));
+
+})
+
+);
 
 router.get('/home', homeController.home);
 
@@ -41,45 +44,80 @@ router.get('/home', homeController.home);
 
 // LOGIN
 
-// router.get('/login', loginController.login);
-// passport.use(new LocalStrategy({
-//     passReqToCallback: true,
-//     usernameField: 'username',
-//     passwordField: 'password'
+router.get('/login', loginController.login);
+// router.get('/login', function (req, res, next) {
+//     passport.authenticate('local', function (err, user, info) {
+//         if (err) { return next(err); }
+//         if (!user) { return res.redirect('/admin/login'); }
+//         req.logIn(user, function (err) {
+//             if (err) { return next(err); }
+//             return res.redirect('/users/' + user.username);
+//         });
+//     })(req, res, next);
+// });
+passport.use(new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password'
+},
+    function (email, password, done) {
+        User.findOne({ email: email }, function (err, user) {
+            if (err) { return done(err); }
+            if (!user) {
+                return done(null, false, { message: 'Incorrect username.' });
+            }
+            if (!user.validPassword(password)) {
+                return done(null, false, { message: 'Incorrect password.' });
+            }
+            return done(null, user);
+        });
+    }
+));
+router.post('/login', passport.authenticate('local', {
+    successRedirect: '/admin/home',
+    failureRedirect: '/admin/login',
+    failureFlash: true
+}));
+// passport.use('local', new LocalStrategy({
+//     // by default, local strategy uses username and password, we will override with email
+//     usernameField: 'email',
+//     passwordField: 'password',
+//     passReqToCallback: true // allows us to pass back the entire request to the callback
 // },
-//     function (req, usernameField, passwordField, done) {
-//         User.findOne({ username: usernameField }, function (err, user) {
-//             if (err) { return done(err); }
-//             if (!user) {
-//                 return done(null, false, req.flash('message', 'Incorrect username.'));
-//             }
-//             if (!user.validPassword(passwordField)) {
-//                 return done(null, false, req.flash('message', 'Incorrect password.'));
-//             }
+//     function (req, email, password, done) { // callback with email and password from our form
 
-//             var sessData = req.session;
-//             sessData.userSession = user;
+//         // find a user whose email is the same as the forms email
+//         // we are checking to see if the user trying to login already exists
+//         User.findOne({ email: email }, function (err, user) {
+//             // if there are any errors, return the error before anything else
+//             if (err)
+//                 return done(err);
 
+//             // if no user is found, return the message
+//             if (!user)
+//                 return done(null, false, req.flash('message', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
+
+//             // if the user is found but the password is wrong
+//             console.log(user)
+//             if (!user.validPassword(password))
+//                 return done(null, false, req.flash('message', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
+
+//             // all is well, return successful user
 //             return done(null, user);
 //         });
 
-//     }
-// ));
+//     }));
+
 // router.post('/login',
 //     passport.authenticate('local', {
-//         successRedirect: '/',
-//         failureRedirect: '/login',
+//         successRedirect: '/admin/home',
+//         failureRedirect: '/admin/login',
 //         failureFlash: true
 //     }),
 //     function (req, res) {
 //         // set session
 
-//         res.redirect('/');
+//         res.redirect('/admin/home');
 //     });
-//router.post('/login', loginController.postLogin)
-
-router.get('/login', loginController.login);
-router.post('/login', loginController.postLogin);
 // LOGOUT
 router.get('/logout', logoutController.logout);
 
@@ -112,6 +150,10 @@ router.get('/user/edit/:id', userController.getEdit);
 router.post('/user/edit', userController.postEdit);
 
 router.get('/user/delete/:id', userController.deleteById);
+
+router.get('/user/is-delete', userController.getListDeleted)
+
+router.get('/user/restore/:id', userController.restore)
 
 
 // PRODUCT
